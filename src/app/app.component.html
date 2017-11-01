@@ -3,15 +3,15 @@
     <div class="container-fluid">
       <a class="navbar-brand">{{pageTitle}}</a>
       <ul class="nav navbar-nav">
-        <li><a [routeLink]="['/welcome']">Home</a></li>
-        <li><a [routeLink]="['/products']">Products</a></li>
-        <li><a [routeLink]="['/productEdit/0']">Add Product</a></li>
+        <li><a [routerLink]="['/welcome']">Home</a></li>
+        <li><a [routerLink]="['/products']">Products</a></li>
+        <li><a [routerLink]="['/productEdit/0']">Add Product</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li *ngIf="authService.isLoggedIn()">
-          Welcome {{ authService.currentUser.userName}}
+          Welcome {{authService.currentUser.userName}}
         </li>
-        <li><a [routerLink]="/messages">Show Messages</a> </li>
+        <li><a [routerLink]="['/messages']">Show Messages</a> </li>
         <li *ngIf="!authService.isLoggedIn()">
           <a [routerLink]="['/login']">Log in</a>
         </li>
