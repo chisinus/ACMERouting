@@ -27,13 +27,21 @@
           </thead>
           <tbody>
             <tr *ngFor='let product of filteredProducts'>
+              <td><a [routerLink]="['/products', product.id]">{{product.name}}</a></td>
+              <td>{{product.description</td>
+              <td>{{product.price}}</td>
+              <td>product.rating</td>
+              <td><a class='btn btn-primary' [routerLink]="['/products', product.id, 'edit']">Edit</a></td>
+<!--                
               <td><img [src]='product.imageUrl' [title]='product.productName' [style.width.px]='imageWidth' *ngIf='showImage'></td>
               <td><a [routerLink]="['/products', product.id]">{{product.productName}}</a></td>
               <td>{{productCode | lowercase | convertToSpaces: '-'}}</td>
               <td>{{product.releaseDate}}</td>
               <td>{{product.price}}</td>
               <td><pm-star [rating]='product.starRating' (ratingclicked)='onRatingClicked($event)'></pm-star></td>
+              <td>product.rating</td>
               <td><a class='btn btn-primary' [routerLink]="['/products', product.id, 'edit']">Edit</a></td>
+-->              
             </tr>
           </tbody>
         </table>

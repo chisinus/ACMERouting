@@ -11,11 +11,17 @@ import { IProduct } from '../shared/product';
 export class ProductListComponent implements OnInit {
   pageTitle: 'Product List';
   listFilter: string;
-  products: IUser[];
+  errorMessage: string;
+
+  products: IProduct[];
+  filteredProducts: IProduct[];
 
   constructor(private productService: ProductService) { }
 
   ngOnInit() {
+    this.productService.getProducts()
+        .subscribe(products=>{this.products = products,
+                              this.filteredProducts = products},
+                    error=> this.errorMessage = <any>error);
   }
-
 }
