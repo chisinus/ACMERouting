@@ -3,8 +3,11 @@ import { IUser } from './user';
 
 @Injectable()
 export class AuthService {
-  user: IUser;
+  currentUser: IUser;
 
   constructor() { }
 
+  isLoggedIn(): boolean {
+    return !!this.currentUser;
+  }
 }

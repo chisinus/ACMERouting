@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { SharedModule } from '../shared/shared.module';
 import { RouterModule } from '@angular/router';
 
 import { ProductListComponent } from './product-list.component';
@@ -8,10 +8,10 @@ import { ProductService } from '../shared/product.service';
 
 @NgModule({
   imports: [
-    CommonModule,
+    SharedModule,
     RouterModule.forChild([
-      {path: '/products', component: ProductListComponent},
-      {path: '/product/:id/edit', component: ProductEditComponent}
+      {path: 'products', component: ProductListComponent},
+      {path: 'product/:id/edit', component: ProductEditComponent}
     ])
   ],
   providers: [ProductService],

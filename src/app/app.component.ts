@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
+import { AuthService } from './users/auth.service';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -9,7 +11,7 @@ import { RouterModule } from '@angular/router';
 export class AppComponent {
   pageTitle = 'Acme Product Management';
 
-  constructor() {
+  constructor(private authService: AuthService) {
 
   }
 

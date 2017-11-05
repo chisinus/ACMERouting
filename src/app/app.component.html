@@ -5,7 +5,7 @@
       <ul class="nav navbar-nav">
         <li><a [routerLink]="['/welcome']">Home</a></li>
         <li><a [routerLink]="['/products']">Products</a></li>
-        <li><a [routerLink]="['/productEdit/0']">Add Product</a></li>
+        <li><a [routerLink]="['/product/0/edit']">Add Product</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li *ngIf="authService.isLoggedIn()">
