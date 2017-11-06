@@ -1,3 +1,90 @@
-<p>
-  product-edit works!
-</p>
+<div class='panel panel-primary'>
+  <div class='panel-heading'>
+    {{pageTitle}}
+  </div>
+
+  <div class='panel-body'>
+    <form class='form-horizontal'
+        novalidate
+        (ngSubmit)='saveProduct()'
+        [formGroup]='productForm'>
+      <fieldset>
+        <div class="form-group" 
+            [ngClass]="{'has-error': !productForm.get('productName').value && productForm.get('productName').dirty }">
+          <label class="col-md-2 control-label" for="productNameId">Product Name</label>
+
+          <div class="col-md-8">
+              <input class="form-control" 
+                      id="productNameId" 
+                      type="text" 
+                      placeholder="Name (required)" 
+                      formControlName="productName" />
+          </div>
+        </div>
+
+        <div class='form-group'
+            [ngClass]="{'has-error': !productForm.get('productCode').value && productForm.get('productCode').dirty }">
+            <label class='col-md-2 control-label' for='productCodeId'>Product Code</label>
+
+            <div class='col-md-8'>
+              <input class='form-control'
+                     id='productControlId'
+                     type='text'
+                     placeHolder='Code (required)'
+                     formControlName='productCode' />
+            </div>
+        </div>
+
+        <div class='form-group'
+            [ngClass]="{'has-error': !productForm.get('starRating').value && productForm.get('starRating').dirty }">
+            <label class='col-md-2 form-label' for='starRatingId'>Star Rating (1-5)</label>
+
+            <div class='col-md-8'>
+              <input class='form-control'
+                     id='starRatingId'
+                     type='text'
+                     placeholder="Rating"
+                     formControlName='starRating' />
+            </div>
+        </div>
+
+        <div class="form-group" [ngClass]="{'has-error': !productForm.get('description').value && productForm.get('description').dirty }">
+            <label class="col-md-2 control-label" for="descriptionId">Description</label>
+
+            <div class="col-md-8">
+                <textarea class="form-control" 
+                        id="descriptionId" 
+                        placeholder="Description"
+                        rows=3
+                        formControlName="description"></textarea>
+            </div>
+        </div>     
+        
+        <div class='form-group'>
+          <div class='col-md-4 col-md-offset-2'>
+            <span>
+              <button class='btn btn-primary'
+                      type="submit"
+                      style='width: 80px; margin-right: 10px'
+                      [disabled]='!productForm.valid'>Save</button>
+            </span>
+
+            <span>
+              <button class='btn btn-default'
+                      style='width: 80px'
+                      [routerLink]="['/products']">Cancel</button>
+            </span>
+
+            <span *ngIf='product?.id'>
+              <a class='btn btn-default'
+                 style='width: 80px'
+                 (click)="deleteProduct()">Delete</a>"
+            </span>
+          </div>
+        </div>
+      </fieldset>
+    </form>
+    <div class='has-error' *ngIf='errorMessage'>{{errorMessage}}</div>
+    <div>{{productForm.get('description').value}}</div>
+  </div>
+</div>

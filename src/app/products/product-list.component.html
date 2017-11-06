@@ -15,23 +15,23 @@
         <table class='table' *ngIf='products && products.length'>
           <thead>
             <tr>
-              <th>
+<!--              <th>
                 <button class='btn btn-primary' (click)='toggleImage()'>Show Image</button>
               </th>
+            -->              
               <th>Product</th>
               <th>Code</th>
-              <th>Available</th>
               <th>Price</th>
               <th>5 Star Rating</th>
             </tr>
           </thead>
           <tbody>
             <tr *ngFor='let product of filteredProducts'>
-              <td><a [routerLink]="['/products', product.id]">{{product.name}}</a></td>
-              <td>{{product.description</td>
+              <td><a [routerLink]="['/product', product.id, 'edit']">{{product.productName}}</a></td>
+              <td>{{product.productCode}}</td>
               <td>{{product.price}}</td>
-              <td>product.rating</td>
-              <td><a class='btn btn-primary' [routerLink]="['/products', product.id, 'edit']">Edit</a></td>
+              <td>{{product.starRating}}</td>
+              <td><a class='btn btn-primary' [routerLink]="['/product', product.id, 'edit']">Edit</a></td>
 <!--                
               <td><img [src]='product.imageUrl' [title]='product.productName' [style.width.px]='imageWidth' *ngIf='showImage'></td>
               <td><a [routerLink]="['/products', product.id]">{{product.productName}}</a></td>

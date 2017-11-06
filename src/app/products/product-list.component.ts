@@ -10,18 +10,32 @@ import { IProduct } from '../shared/product';
 })
 export class ProductListComponent implements OnInit {
   pageTitle: 'Product List';
-  listFilter: string;
   errorMessage: string;
 
   products: IProduct[];
   filteredProducts: IProduct[];
 
+  _listFilter: string;
+  get listFilter(): string {
+    return this._listFilter;
+  }
+  set listFilter(value: string) {
+    this._listFilter = value;
+    this.filteredProducts = this._listFilter?this.performFilter(this._listFilter):this.products;
+  }
+
+  performFilter(filter: string): IProduct[] {
+    filter = filter.toLocaleLowerCase();
+    
+    return this.products.filter((product: IProduct) => product.productName.toLocaleLowerCase().indexOf(filter) !== -1);
+  }
+  
   constructor(private productService: ProductService) { }
 
   ngOnInit() {
     this.productService.getProducts()
         .subscribe(products=>{this.products = products,
                               this.filteredProducts = products},
-                    error=> this.errorMessage = <any>error);
+                   error=> this.errorMessage = <any>error);
   }
 }

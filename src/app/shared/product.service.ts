@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, RequestOptions, Headers, Response } from '@angular/http';
+import { HttpErrorResponse } from '@angular/common/http';
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/do';
@@ -9,11 +10,10 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/of';
 
 import {IProduct} from './product';
-import { HttpErrorResponse } from '@angular/common/http';
 
 @Injectable()
 export class ProductService {
-  private baseUrl = 'http://localhost:5000/api/product';
+  private baseUrl = 'http://localhost:50000/api/product';
 
   constructor(private http: Http) { }
 
@@ -31,8 +31,7 @@ export class ProductService {
       });
     }
 
-    const url = this.baseUrl + `${this.baseUrl}/${id}`;
-
+    const url = `${this.baseUrl}/${id}`;
     return this.http.get(url)
               .map(p => p.json())
               .do(p => console.log('getProduct: ' + JSON.stringify(p)))
@@ -49,8 +48,33 @@ export class ProductService {
   }
 
   saveProduct(product: IProduct): Observable<IProduct> {
-    return null;
+    let headers = new Headers({'Content-type': 'application/json'});
+    let options = new RequestOptions({headers: headers});
+
+    if (product.id === 0) {
+      return this.createProduct(product, options);
+    }
+
+    return this.updateProduct(product, options);
   }
+
+  createProduct(product: IProduct, options: RequestOptions): Observable<IProduct> {
+    product.id = undefined;
+    return this.http.post(this.baseUrl, product, options)
+              .map(p=>p.json())
+              .do(data=>console.log('create product ' + JSON.stringify(data)))
+              .catch(this.errorHandler);
+  }
+
+  updateProduct(product: IProduct, options: RequestOptions) {
+    const url = `${this.baseUrl}/${product.id}`;
+
+    return this.http.put(url, product, options)
+              .map(p=>p.json())
+              .do(data=>console.log('update product ' + JSON.stringify(data)))
+              .catch(this.errorHandler);
+}
+
 
   errorHandler(error: HttpErrorResponse): Observable<any> {
     console.log('return an error. ' + error);
@@ -62,10 +86,11 @@ export class ProductService {
   initialProduct(): IProduct {
     return {
       id: 0,
-      name: '',
+      productName: '',
+      productCode: '',
       description: '',
       price: 0.0,
-      rating: 0
+      starRating: 0
     };
   }
 }
