@@ -28,7 +28,7 @@ export class ProductEditComponent implements OnInit, OnDestroy {
      this.productForm = this.formBuilder.group({
         productName: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
         productCode: ['', Validators.required],
-        starRating: ['', NumberValidators.range(1,5)],
+        starRating: ['', NumberValidators.range(1, 5)],
         description: ['']
      });
 
@@ -37,7 +37,7 @@ export class ProductEditComponent implements OnInit, OnDestroy {
 
       // expect paramter to change without leaving the page
       // use observable
-      // this is the normal way the retrieve data. We are going to use Resolver now. 
+      // this is the normal way the retrieve data. We are going to use Resolver now.
       //  this.sub = this.route.params.subscribe(
       //    params => {
       //      const id = +params['id'];  // + cast to a number
@@ -49,13 +49,13 @@ export class ProductEditComponent implements OnInit, OnDestroy {
       this.route.data.subscribe(data => {
         this.onProductRetrieved(data['product']);
       });
-      
+
       // this won't refresh page if change parameter.
-      //this.onProductRetrieved(this.route.snapshot.data['product']);
-  };
+      // this.onProductRetrieved(this.route.snapshot.data['product']);
+  }
 
   ngOnDestroy(): void {
-    // this.sub.unsubscribe();  
+    // this.sub.unsubscribe();
   }
 
   errorHandler(error: any) {
@@ -95,8 +95,7 @@ export class ProductEditComponent implements OnInit, OnDestroy {
   }
 
   saveProduct(): void {
-    if (this.productForm.dirty && this.productForm.valid)
-    {
+    if (this.productForm.dirty && this.productForm.valid) {
       const p = Object.assign({}, this.product, this.productForm.value);
 
       this.productService.saveProduct(p)

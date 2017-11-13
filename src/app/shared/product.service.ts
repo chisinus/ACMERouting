@@ -48,8 +48,8 @@ export class ProductService {
   }
 
   saveProduct(product: IProduct): Observable<IProduct> {
-    let headers = new Headers({'Content-type': 'application/json'});
-    let options = new RequestOptions({headers: headers});
+    const headers = new Headers({'Content-type': 'application/json'});
+    const options = new RequestOptions({headers: headers});
 
     if (product.id === 0) {
       return this.createProduct(product, options);
@@ -61,8 +61,8 @@ export class ProductService {
   createProduct(product: IProduct, options: RequestOptions): Observable<IProduct> {
     product.id = undefined;
     return this.http.post(this.baseUrl, product, options)
-              .map(p=>p.json())
-              .do(data=>console.log('create product ' + JSON.stringify(data)))
+              .map(p => p.json())
+              .do(data => console.log('create product ' + JSON.stringify(data)))
               .catch(this.errorHandler);
   }
 
@@ -70,8 +70,8 @@ export class ProductService {
     const url = `${this.baseUrl}/${product.id}`;
 
     return this.http.put(url, product, options)
-              .map(p=>p.json())
-              .do(data=>console.log('update product ' + JSON.stringify(data)))
+              .map(p => p.json())
+              .do(data => console.log('update product ' + JSON.stringify(data)))
               .catch(this.errorHandler);
 }
 
