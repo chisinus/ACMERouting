@@ -13,7 +13,7 @@ import { NumberValidators } from '../shared/number-valiators';
 })
 export class ProductEditComponent implements OnInit, OnDestroy {
   errorMessage: string;
-  pageTitle = "Edit Product";
+  pageTitle = 'Edit Product';
 
   productForm: FormGroup;
   product: IProduct;
@@ -46,7 +46,7 @@ export class ProductEditComponent implements OnInit, OnDestroy {
       //  )
 
       // use Resolver
-      this.route.data.subscribe(data=> {
+      this.route.data.subscribe(data => {
         this.onProductRetrieved(data['product']);
       });
       
@@ -56,7 +56,7 @@ export class ProductEditComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     // this.sub.unsubscribe();  
-  };
+  }
 
   errorHandler(error: any) {
     this.errorMessage = error;
@@ -64,12 +64,12 @@ export class ProductEditComponent implements OnInit, OnDestroy {
   }
 
   getProduct(id) {
-    console.log("in getProduct");
+    console.log('in getProduct');
     this.productService.getProduct(id)
       .subscribe(
         (product: IProduct) => this.onProductRetrieved(product),
-        (error: any)=>this.errorHandler(error)
-      )
+        (error: any) => this.errorHandler(error)
+      );
   }
 
   onProductRetrieved(product: IProduct): void {
@@ -80,11 +80,11 @@ export class ProductEditComponent implements OnInit, OnDestroy {
     this.product = product;
 
     if (this.product.id === 0) {
-      this.pageTitle = "Add Product";
+      this.pageTitle = 'Add Product';
     }else {
       this.pageTitle = `Edit Product ${product.productName}`;
     }
-    console.log("in onProductRetrieved " + this.product.productName);
+    console.log('in onProductRetrieved ' + this.product.productName);
 
     this.productForm.patchValue({
       productName: this.product.productName,
@@ -97,12 +97,12 @@ export class ProductEditComponent implements OnInit, OnDestroy {
   saveProduct(): void {
     if (this.productForm.dirty && this.productForm.valid)
     {
-      let p = Object.assign({}, this.product, this.productForm.value);
+      const p = Object.assign({}, this.product, this.productForm.value);
 
       this.productService.saveProduct(p)
           .subscribe(
-            ()=>this.completed(),
-            error=>this.errorMessage = <any>error
+            () => this.completed(),
+            error => this.errorMessage = <any>error
           );
     } else {
       this.completed();
@@ -115,14 +115,14 @@ export class ProductEditComponent implements OnInit, OnDestroy {
   }
 
   deleteProduct() {
-    if (!confirm("Are you sure?")) {
+    if (!confirm('Are you sure?')) {
       return;
     }
 
     this.productService.deleteProduct(this.product.id)
         .subscribe(
-          ()=>this.completed(),
-          error=>this.errorMessage=<any>error
+          () => this.completed(),
+          error => this.errorMessage = <any>error
         );
   }
 }
