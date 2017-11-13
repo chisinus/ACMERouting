@@ -36,17 +36,26 @@ export class ProductEditComponent implements OnInit, OnDestroy {
       // let id = +this.route.snapshot.params['id'];
 
       // expect paramter to change without leaving the page
-      // use observable     
-     this.sub = this.route.params.subscribe(
-       params => {
-         const id = +params['id'];
-         this.getProduct(id);
-       }
-     )
+      // use observable
+      // this is the normal way the retrieve data. We are going to use Resolver now. 
+      //  this.sub = this.route.params.subscribe(
+      //    params => {
+      //      const id = +params['id'];  // + cast to a number
+      //      this.getProduct(id);
+      //    }
+      //  )
+
+      // use Resolver
+      this.route.data.subscribe(data=> {
+        this.onProductRetrieved(data['product']);
+      });
+      
+      // this won't refresh page if change parameter.
+      //this.onProductRetrieved(this.route.snapshot.data['product']);
   };
 
   ngOnDestroy(): void {
-    this.sub.unsubscribe();
+    // this.sub.unsubscribe();  
   };
 
   errorHandler(error: any) {
@@ -102,10 +111,14 @@ export class ProductEditComponent implements OnInit, OnDestroy {
 
   completed(): void {
     this.productForm.reset();
-    this.router.navigate(['/products']);
+    this.router.navigate(['/products'], {queryParamsHandling: 'preserve'});
   }
 
   deleteProduct() {
+    if (!confirm("Are you sure?")) {
+      return;
+    }
+
     this.productService.deleteProduct(this.product.id)
         .subscribe(
           ()=>this.completed(),
