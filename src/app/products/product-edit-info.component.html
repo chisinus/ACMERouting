@@ -1,0 +1,49 @@
+<div class="panel panel-primary">
+    <form class='form-horizontal' novalidate [formGroup]='productForm'>
+      <fieldset>
+        <legend>Basic Product Information (use reactive form)</legend>
+        <div class='form-group' [ngClass]="{ 'has-error': !productForm.get('productName').value && productForm.getValue('productName').dirty }">
+          <label class='col-md-2 control-label' for='productNameId'>Product Name</label>
+          <div class='col-md-8'>
+            <input class='form-control'
+                   id='productNameId'
+                   type='text'
+                   placeholder='Name (required)'
+                   formControlName='productName' />
+          </div>
+        </div>
+        <div class='form-group' [ngClass]="{ 'has-error': !productForm.get('productCode').value && productForm.getValue('productCode').dirty }">
+            <label class='col-md-2 control-label' for='productCodeId'>Product Code</label>
+            <div class='col-md-8' >
+              <input class='form-control'
+                     id='productCodeId'
+                     type='text'
+                     placeholder="Code (required)"
+                     formControlName='productCode' />
+            </div>
+        </div>
+        <div class='form-group' [ngClass]="{'has-error': !productForm.get('starRating').value && productForm.get('starRating').dirty }">
+          <label class='col-md-2 form-label' for='starRatingId'>Star Rating (1-5)</label>
+
+          <div class='col-md-8'>
+            <input class='form-control'
+                  id='starRatingId'
+                  type='text'
+                  placeholder="Rating"
+                  formControlName='starRating' />
+          </div>
+        </div>
+        <div class="form-group" [ngClass]="{'has-error': !productForm.get('description').value && productForm.get('description').dirty }">
+          <label class="col-md-2 control-label" for="descriptionId">Description</label>
+
+          <div class="col-md-8">
+              <textarea class="form-control" 
+                      id="descriptionId" 
+                      placeholder="Description"
+                      rows=3
+                      formControlName="description"></textarea>
+          </div>
+        </div>             
+      </fieldset>
+    </form>
+  </div>
